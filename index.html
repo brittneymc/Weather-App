@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Weather</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="main.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    </head>
+    <body>
+        <div class="container">
+            <header class="header">
+                <div class="search">
+                    <input type="text" placeholder="Enter Location" id="search-txt">
+                    <a id="search-btn" href="#"><i class="fas fa-search"></i></a>
+                </div>
+            </header>
+            <main id="main">
+            <!-- ICON GIF-->
+            <div class="local-icon">
+                <div class="local-icon-holder">
+                    <div id="cityName"></div>  
+                    <img src="" alt="" id="icon">
+                </div>
+            </div>
+            <!-- TEMPERATURE-->
+            <div class="temperature">
+                <div id="temp"></div>
+            </div>
+            <!-- LOCATION NAME-->
+            <div class="cityName-div">
+                    <canvas id="icon1" width="128" height="128"></canvas>
+                    <canvas id="icon2" width="128" height="128"></canvas>
+                <div id="humidity-div"></div>
+            </div>
+            </main>
+        </div> <!--container end-->
+    </body>
+    <script  src="index.js"></script>
+        <script src='https://use.fontawesome.com/releases/v5.0.13/js/all.js'></script>
+</html>
