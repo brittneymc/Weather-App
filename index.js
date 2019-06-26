@@ -1,43 +1,33 @@
-const myKey = 'd1a60767205a270e90d781d840f156f6'; // Weather API key
+window.addEventListener('load', ()=> { // begin function on page load
+  let long;
+  let lat;
+  let tempDesc = document.querySelector('temp-description'); 
+  let tempDegree = document.querySelector('temp-degree'); 
+  let locationTimezone = document.querySelector('location-timezone'); 
 
-var searchButton = document.getElementById("search-btn");
-let searchInput = document.getElementById("search-txt");
-let cityName = document.getElementById("cityName");
-let temperature = document.getElementById("temp");
+  if(navigator.geolocation) { // if this exists in browser
+    navigator.geolocation.getCurrentPosition(position => {
+      //console.log(position);
+      long = position.coords.longitude;
+      lat = position.coords.latitude;
 
-searchButton.addEventListener("click", findWeatherDetails);
-searchInput.addEventListener("keyup", enterPressed);
+      const proxy = `https://cors-anywhere.herokuapp.com/`;
+      const api = `${proxy}https://api.darksky.net/forecast/b52f1f1ca7925176d7d698fe1700c1b0/${lat},${long}`;
+    
+      fetch(api)
+      .then(response => { // take info and convert to json
+        return response.json();
+      })
+      .then(data => {
+        const {temperature, summary} = data.currently; // shortens syntax; data.currently.temperature
+        // Set DOM elements from API
+        tempDegree.textContent = temperature;
+        tempDesc.textContent = summary;
 
-var enterPressed = (event) => {
-  console.log("enterpressed, u working cuh?");
-    if (event.key === "Enter") {
-        findWeatherDetails();
-      }
-}
-
-var findWeatherDetails = () => {
-    console.log("weather deets, u working cuh?");
-    if (searchInput.value === "") {  
-    } else {
-      let searchLink = "https://api.openweathermap.org/data/2.5/weather?q=" + searchInput.value + "&appid="+appKey;
-     httpRequestAsync(searchLink, theResponse);
-    }
-}
-
-var theResponse = (response) => {
-    let jsonObject = JSON.parse(response);
-    location.innerHTML = jsonObject.name;
-    temperature.innerHTML = parseInt(jsonObject.main.temp - 273) + "°"; // convert temp from Kelvin
+        console.log(data);
+      });
+    });
+  } else {
+    h1.textContent = "This doesn't work without your location being shared."
   }
-
-  function httpRequestAsync(url, callback) {
-  console.log("this ran");
-    var httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = () => { 
-        if (httpRequest.readyState == 4 && httpRequest.status == 200)
-            callback(httpRequest.responseText);
-    }
-    httpRequest.open("GET", url, true); // true for asynchronous 
-    httpRequest.send();
-}
-console.log("here is my API key", myKey);
+});

@@ -5,38 +5,22 @@
         <title>Weather</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="main.css">
+        <link rel="stylesheet" href="index.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     </head>
     <body>
-        <div class="container">
-            <header class="header">
-                <div class="search">
-                    <input type="text" placeholder="Enter Location" id="search-txt">
-                    <a id="search-btn" href="#"><i class="fas fa-search"></i></a>
-                </div>
-            </header>
-            <main id="main">
-            <!-- ICON GIF-->
-            <div class="local-icon">
-                <div class="local-icon-holder">
-                    <div id="cityName"></div>  
-                    <img src="" alt="" id="icon">
-                </div>
+        <div class="location">
+            <h1 class="location-timezone">Location</h1>
+            <p>icon</p>
+        </div>
+        <div class="temperature">
+            <div class="degrees">
+                <h2 class="temp-degree">34</h2>
+                <span>F</span>
             </div>
-            <!-- TEMPERATURE-->
-            <div class="temperature">
-                <div id="temp"></div>
-            </div>
-            <!-- LOCATION NAME-->
-            <div class="cityName-div">
-                    <canvas id="icon1" width="128" height="128"></canvas>
-                    <canvas id="icon2" width="128" height="128"></canvas>
-                <div id="humidity-div"></div>
-            </div>
-            </main>
-        </div> <!--container end-->
-    </body>
+            <div class="temp-description">It's hot af</div>
+        </div> 
     <script  src="index.js"></script>
-        <script src='https://use.fontawesome.com/releases/v5.0.13/js/all.js'></script>
+    <script src='https://use.fontawesome.com/releases/v5.0.13/js/all.js'></script>
+</body>
 </html>
