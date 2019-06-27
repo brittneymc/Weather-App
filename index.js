@@ -1,9 +1,11 @@
 window.addEventListener('load', ()=> { // begin function on page load
   let long;
   let lat;
-  let tempDesc = document.querySelector('temp-description'); 
-  let tempDegree = document.querySelector('temp-degree'); 
-  let locationTimezone = document.querySelector('location-timezone'); 
+  let tempDesc = document.querySelector('.temp-description'); 
+  let tempDegree = document.querySelector('.temp-degree'); 
+  let locationTimezone = document.querySelector('.location-timezone'); 
+  let tempSection = document.querySelector('.temperature');
+  const tempSpan = document.querySelector('.temp-degree span');
 
   if(navigator.geolocation) { // if this exists in browser
     navigator.geolocation.getCurrentPosition(position => {
@@ -19,15 +21,31 @@ window.addEventListener('load', ()=> { // begin function on page load
         return response.json();
       })
       .then(data => {
-        const {temperature, summary} = data.currently; // shortens syntax; data.currently.temperature
+        const {temperature, summary, icon} = data.currently; // shortens syntax; data.currently.temperature
+        console.log(data);
         // Set DOM elements from API
         tempDegree.textContent = temperature;
         tempDesc.textContent = summary;
-
-        console.log(data);
-      });
+        locationTimezone.textContent = data.timezone;
+        // set icon
+        setIcons(icon, document.querySelector('.icon'));
+        // switch temperature
+        tempSection.addEventListener('click', () => {
+          if(tempSpan.textContent === 'F') {
+            tempSpan.textContent === 'C';
+          } else {
+            tempSpan.textContent === 'F';
+          }
+        })
+        });
     });
   } else {
     h1.textContent = "This doesn't work without your location being shared."
+  }
+  function setIcons(icon, iconID){ 
+    const skycons = new Skycons({color: "white"}); // initiate library and change color to white
+    const currentIcon = icon.replace(/-/g,"_").toUpperCase(); // replace with underscore
+    skycons.play(); // animates icon
+    return skycons.set(iconID, Skycons[currentIcon]);
   }
 });
