@@ -5,7 +5,7 @@ window.addEventListener('load', ()=> { // begin function on page load
   let tempDegree = document.querySelector('.temp-degree'); 
   let locationTimezone = document.querySelector('.location-timezone'); 
   let tempSection = document.querySelector('.temperature');
-  const tempSpan = document.querySelector('.temp-degree span');
+  const tempSpan = document.querySelector('.temperature span');
 
   if(navigator.geolocation) { // if this exists in browser
     navigator.geolocation.getCurrentPosition(position => {
@@ -27,18 +27,22 @@ window.addEventListener('load', ()=> { // begin function on page load
         tempDegree.textContent = temperature;
         tempDesc.textContent = summary;
         locationTimezone.textContent = data.timezone;
+        // F to C
+        let celsius = (temperature - 32)*(5/9);
         // set icon
         setIcons(icon, document.querySelector('.icon'));
         // switch temperature
         tempSection.addEventListener('click', () => {
           if(tempSpan.textContent === 'F') {
-            tempSpan.textContent === 'C';
+            tempSpan.textContent = 'C';
+            tempDegree.textContent = Math.floor(celsius);
           } else {
-            tempSpan.textContent === 'F';
+            tempSpan.textContent = 'F';
+            tempDegree.textContent = temperature;
           }
         })
-        });
-    });
+      }); // .then data
+    }); // get current pos
   } else {
     h1.textContent = "This doesn't work without your location being shared."
   }
